@@ -6,13 +6,13 @@
          <td>
            Category Name
          </td>
-         <td> <input type="text" id="newCatName" v-model="newCatName.name" placeholder="Category Name"></td>
+         <td> <input type="text" id="newCatName" v-model="catname" placeholder="Category Name"></td>
        </tr>
         <tr>
          <td>
            Category Description
          </td>
-         <td><textarea v-model="newCatName.description" type="text" placeholder="Category Description"></textarea> </td>       
+         <td><textarea v-model="catdes" type="text" placeholder="Category Description"></textarea> </td>       
        </tr>
        <tr>
          <td></td>
@@ -24,6 +24,22 @@
    <button class="addBtn fright" @click="showingAddModal=true">Add New</button>
    <div class="clear"></div>
    <hr>
+   <table class="nice-table">
+     <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Edit</th>
+            <th>Delete</th>             
+     </tr>
+     <tr v-for="(it,i) in newCatName">
+          <td>{{i+1}}</td>
+          <td>{{it.name}}</td>
+          <td>{{it.description}}</td>
+          <td><button class="edit">Edit</button></td>
+          <td><button class="delete">Delete</button></td>
+     </tr>
+   </table>
   </div>
 </template>
 
@@ -33,15 +49,16 @@ export default {
   data () {
     return {
      showingAddModal:false,
-     newCatName:{
-      name:'',
-      description:''
-     }
+     catname:'',
+     catdes:'',
+     newCatName:[]
     }
   },
   methods:{
     addNewCategory(){
-      this.showingAddModal=false
+      this.newCatName.push({name:this.catname,description:this.catdes});
+      this.showingAddModal=false,
+      console.log(this.newCatName);
     }
     
   }
