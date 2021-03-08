@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "check-node-version": "^4.1.0",
     "izitoast": "^1.4.0",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
