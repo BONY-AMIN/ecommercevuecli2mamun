@@ -1,6 +1,6 @@
 <template>
   <div>
-    <modal modalHeading="Add New Categry" :cond="showingAddModal" @modalClose="showingAddModal=false">
+    <modal modalHeading="Add New Category" :cond="showingAddModal" @modalClose="showingAddModal=false">
      <table>
        <tr>
          <td>
@@ -21,7 +21,7 @@
      </table>
     </modal>
     <!-- Edit Modal -->
-     <modal modalHeading="Update Categry" :cond="showingEditModal" @modalClose="showingEditModal=false">
+     <modal modalHeading="Update Category" :cond="showingEditModal" @modalClose="showingEditModal=false">
      <table>
        <tr>
          <td>
@@ -42,7 +42,7 @@
      </table>
     </modal>
 <!-- DELETE -->
-    <modal modalHeading="Delete Categry" :cond="showingDeleteModal" @modalClose="showingDeleteModal=false">
+    <modal modalHeading="Delete Category" :cond="showingDeleteModal" @modalClose="showingDeleteModal=false">
       <h2>You are going to delete the category '{{clickCat.name}}'</h2>
      <table>    
        <tr>
@@ -92,8 +92,20 @@ export default {
     },
   methods:{
     addNewCategory:function(){
-     
+           if(!this.newCat.name){
+           this.$iziToast.error({
+        title: 'Error',
+        message: 'Illegal operation',
+         });
+           var newCatName=document.getElementById("newCatName");
+           newCatName.focus();
+           return;
+     }
       this.categoris.push({Id:this.categoris.length + 1,name:this.newCat.name,description:this.newCat.description});
+          this.$iziToast.success({
+           title: 'OK',
+           message: 'Successfully inserted record!',
+              });
       this.showingAddModal=false
     },
     updateCategory:function(id){
@@ -105,10 +117,9 @@ export default {
             }
         }
       
-       console.log(index);
+       this.showingEditModal = false
     // this.categoris[i].name=this.clickCat.name;
     // this.categoris[i].description=this.clickCat.description;
-    this.showingEditModal = false
     
     },
     DeleteCat:function(id){
